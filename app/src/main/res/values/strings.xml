@@ -6,4 +6,8 @@
 
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">News App Settings</string>
+    
+    <string name="settings_search_term_label">Single Word Search Term</string>
+    <string name="settings_search_term_key" translatable="false">search_term</string>
+    <string name="settings_search_term_default_value" translatable="true">Search for a single term</string>
 </resources>
