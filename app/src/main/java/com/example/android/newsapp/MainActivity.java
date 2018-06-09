@@ -4,11 +4,13 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -35,8 +37,30 @@ public class MainActivity extends AppCompatActivity {
     private final LoaderManager.LoaderCallbacks<List<News>> newsLoader = new LoaderManager.LoaderCallbacks<List<News>>() {
         @Override
         public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+            //getString retrieves a string value from the preferences. The second parameter is the default value for this preference
+            String searchTerm = sharedPrefs.getString(getString(R.string.settings_search_term_key), getString(R.string.settings_search_term_default_value));
+
+            // parse breaks apart the URI string that's passed into its parameter
+            Uri baseUri = Uri.parse(QueryUtils.REQUEST_URL);
+
+            //buildUpon prepares the base URI that we just parsed so we can add query parameters to it
+            Uri.Builder uriBuilder = baseUri.buildUpon();
+
+            //Append the query parameters and their values
+
+            uriBuilder.appendQueryParameter("show-tags", "contributor");
+            uriBuilder.appendQueryParameter("order-by", "newest");
+            uriBuilder.appendQueryParameter("api-key", "324ed141-8ecd-4f25-be0a-872bd02c6a8a");
+            uriBuilder.appendQueryParameter("from-date", "2017-01-01");
+            if (searchTerm != "Search for a single term") {
+                uriBuilder.appendQueryParameter("q", searchTerm);
+            }
+
             // Create new loader
-            return new NewsLoader(currentContext, QueryUtils.REQUEST_URL);
+            return new NewsLoader(currentContext, uriBuilder.toString());
         }
 
         @Override
