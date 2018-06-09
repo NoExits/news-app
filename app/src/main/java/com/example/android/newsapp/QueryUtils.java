@@ -26,7 +26,7 @@ public class QueryUtils {
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
     //The request URL. This should be called outside of this class.
-    public static final String REQUEST_URL = "http://content.guardianapis.com/search?show-tags=contributor&q=future&order-by=newest&from-date=2017-01-01&api-key=324ed141-8ecd-4f25-be0a-872bd02c6a8a";
+    public static final String REQUEST_URL = "http://content.guardianapis.com/search?show-tags=contributor&order-by=newest&from-date=2017-01-01&api-key=324ed141-8ecd-4f25-be0a-872bd02c6a8a";
 
     //Create the a private constructor for the QueryUtils class.
     //It is private because no one should be able to create an instance of this class because
