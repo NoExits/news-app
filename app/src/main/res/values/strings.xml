@@ -3,4 +3,7 @@
 
     <string name="no_news_available">No news available to display</string>
     <string name="no_internet_connection">No internet connection available</string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News App Settings</string>
 </resources>
