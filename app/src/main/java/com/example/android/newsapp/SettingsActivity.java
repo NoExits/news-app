@@ -2,6 +2,7 @@ package com.example.android.newsapp;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,12 +23,26 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference searchTerm = findPreference(getString(R.string.settings_search_term_key));
             bindPreferenceSummaryToValue(searchTerm);
+
+            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
+            bindPreferenceSummaryToValue(orderBy);
         }
 
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             //Take care of updating the displayed preference summary after it has been updated
             String stringValue = value.toString();
+
+            if (preference instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) preference;
+                int prefIndex = listPreference.findIndexOfValue(stringValue);
+                if (prefIndex >= 0) {
+                    CharSequence[] labels = listPreference.getEntries();
+                    preference.setSummary(labels[prefIndex]);
+                }
+            } else {
+                preference.setSummary(stringValue);
+            }
             preference.setSummary(stringValue);
             return true;
         }

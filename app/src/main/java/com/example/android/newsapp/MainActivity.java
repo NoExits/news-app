@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
             //getString retrieves a string value from the preferences. The second parameter is the default value for this preference
             String searchTerm = sharedPrefs.getString(getString(R.string.settings_search_term_key), getString(R.string.settings_search_term_default_value));
+            String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
 
             // parse breaks apart the URI string that's passed into its parameter
             Uri baseUri = Uri.parse(QueryUtils.REQUEST_URL);
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             //Append the query parameters and their values
 
             uriBuilder.appendQueryParameter("show-tags", "contributor");
-            uriBuilder.appendQueryParameter("order-by", "newest");
+            uriBuilder.appendQueryParameter("order-by", orderBy);
             uriBuilder.appendQueryParameter("api-key", "324ed141-8ecd-4f25-be0a-872bd02c6a8a");
             uriBuilder.appendQueryParameter("from-date", "2017-01-01");
             if (searchTerm != "Search for a single term") {
